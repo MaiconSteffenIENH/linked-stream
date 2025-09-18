@@ -7,11 +7,15 @@ import { LinkedList } from "./linked-list/linked-list.js";
 "verde", "azul", "amarelo", "branco", "preto", "roxo", "verde", "vermelho"
 Precisa ser nesta ordem, exatamente igual!
 */
-const data = /* trocar por lista encadeada /\ */ [
-  "a",
-  "b",
-  "c",
-]; /* /\ trocar por lista encadeada */
+const data = new LinkedList(); // Substituir por lista encadeada
+data.add("verde");
+data.add("azul");
+data.add("amarelo");
+data.add("branco");
+data.add("preto");
+data.add("roxo");
+data.add("verde");
+data.add("vermelho");
 
 const server = http.createServer(async (req, res) => {
   res.writeHead(200, {
@@ -19,19 +23,18 @@ const server = http.createServer(async (req, res) => {
     "Transfer-Encoding": "chunked",
   });
 
-  // Remova aqui \/
-  for (const item of data) {
-    res.write(item); // Esse função envia dados para o cliente!
-    await delay(1); // Essa função espera um segundo
-  }
-  // Remova aqui /\
-
   /*
   9) Faça enviar todas as cores para o cliente,
   com uma pausa de 2 segundos por envio
   */
+  let current = data.head;
+  while (current !== null) {
+    res.write(current.value); // Envia o valor atual para o cliente
+    await delay(2); // Aguarda 2 segundos antes de enviar o próximo
+    current = current.next; // Move para o próximo nó
+  }
 
-  res.end(); // Essa função finaliza a comunicação com o cliente
+  res.end(); // Finaliza a comunicação com o cliente
   console.log("Transmissão concluída pelo servidor.");
   server.close();
 });
