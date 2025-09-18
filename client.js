@@ -1,5 +1,5 @@
 import http from "http";
-import { LinkedList } from "./linked-list.js"; // Import the LinkedList class
+import { LinkedList } from "./linked-list/linked-list.js"; // Import the LinkedList class
 
 const options = {
   hostname: "localhost",
